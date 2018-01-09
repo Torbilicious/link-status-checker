@@ -22,6 +22,13 @@
             <version>${kotlin.version}</version>
         </dependency>
 
+        <!-- Desktop notifications -->
+        <dependency>
+            <groupId>com.dorkbox</groupId>
+            <artifactId>Notify</artifactId>
+            <version>3.7</version>
+        </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test</artifactId>

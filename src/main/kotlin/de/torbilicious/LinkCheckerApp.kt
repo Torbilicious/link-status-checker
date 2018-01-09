@@ -1,5 +1,7 @@
 package de.torbilicious
 
 fun main(args: Array<String>) {
-    println("Start link checker")
+    val notifier = DesktopNotifier()
+
+    notifier.show("Test notification")
 }
