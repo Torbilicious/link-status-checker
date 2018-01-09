@@ -1,6 +1,6 @@
 package de.torbilicious.linkchecker.notification
 
-import de.torbilicious.linkchecker.notification.NotificationType.DEFAULT
+import de.torbilicious.linkchecker.notification.NotificationType.*
 import dorkbox.notify.Notify
 import dorkbox.notify.Pos
 
@@ -20,10 +20,10 @@ class DesktopNotifier {
 
         when (type) {
             DEFAULT -> notify.show()
-            NotificationType.INFORMATION -> notify.showInformation()
-            NotificationType.CONFIRM -> notify.showConfirm()
-            NotificationType.ERROR -> notify.showError()
-            NotificationType.WARNING -> notify.showWarning()
+            INFORMATION -> notify.showInformation()
+            CONFIRM -> notify.showConfirm()
+            ERROR -> notify.showError()
+            WARNING -> notify.showWarning()
         }
     }
 }
