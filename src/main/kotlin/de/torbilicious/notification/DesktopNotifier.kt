@@ -1,16 +1,8 @@
-package de.torbilicious
+package de.torbilicious.notification
 
-import de.torbilicious.NotificationType.*
+import de.torbilicious.notification.NotificationType.*
 import dorkbox.notify.Notify
 import dorkbox.notify.Pos
-
-enum class NotificationType {
-    DEFAULT,
-    INFORMATION,
-    CONFIRM,
-    ERROR,
-    WARNING
-}
 
 class DesktopNotifier {
 
