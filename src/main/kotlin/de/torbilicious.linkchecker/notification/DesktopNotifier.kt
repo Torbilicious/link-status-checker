@@ -1,6 +1,6 @@
-package de.torbilicious.notification
+package de.torbilicious.linkchecker.notification
 
-import de.torbilicious.notification.NotificationType.*
+import de.torbilicious.linkchecker.notification.NotificationType.DEFAULT
 import dorkbox.notify.Notify
 import dorkbox.notify.Pos
 

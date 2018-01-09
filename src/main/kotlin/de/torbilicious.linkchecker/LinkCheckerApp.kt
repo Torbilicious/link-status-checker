@@ -1,7 +1,7 @@
 package de.torbilicious.linkchecker
 
 import de.torbilicious.linkchecker.config.ConfigLoader
-import de.torbilicious.notification.DesktopNotifier
+import de.torbilicious.linkchecker.notification.DesktopNotifier
 
 fun main(args: Array<String>) {
     val notifier = DesktopNotifier()

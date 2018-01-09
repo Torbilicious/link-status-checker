@@ -1,4 +1,4 @@
-package de.torbilicious.notification
+package de.torbilicious.linkchecker.notification
 
 enum class NotificationType {
     DEFAULT,

@@ -1,6 +1,6 @@
-package de.torbilicious.site
+package de.torbilicious.linkchecker.site
 
-import de.torbilicious.site.SiteState.*
+import de.torbilicious.linkchecker.site.SiteState.DOWN
 import java.net.URL
 
 data class Site(val url: URL) {
