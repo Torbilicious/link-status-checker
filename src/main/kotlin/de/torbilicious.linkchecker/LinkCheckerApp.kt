@@ -7,40 +7,57 @@ import de.torbilicious.linkchecker.notification.NotificationType
 import de.torbilicious.linkchecker.site.Site
 import de.torbilicious.linkchecker.site.SiteState.DOWN
 import de.torbilicious.linkchecker.site.SiteState.UP
+import de.torbilicious.linkchecker.tray.TrayApp
 import java.net.URL
 
-val checker = LinkChecker()
-val notifier = DesktopNotifier()
 
-fun main(args: Array<String>) {
-    val sites = ConfigLoader().getConfig().sites.map { Site(URL(it)) }
+class LinkCheckerApp {
+    private val checker = LinkChecker()
+    private val notifier = DesktopNotifier()
+    private val trayApp: TrayApp
+    private var running = true
 
-    var running = true
+    init {
+        val sites = ConfigLoader().getConfig().sites.map { Site(URL(it)) }
 
-    while (running) {
-        checkSites(sites)
+        this.trayApp = TrayApp(onExit = {
+            println("Shutting down")
 
-        Thread.sleep(10000)
+            running = false
+        })
 
-//        running = false
-    }
-}
+        while (running) {
+            checkSites(sites)
 
-fun checkSites(sites: List<Site>) {
-    sites.forEach {
-        println("checking ${it.url}")
-
-        it.state = checker.check(it)
-
-        println("new: ${it.state}")
-        println("old: ${it.previousState}")
-
-        if (it.state == DOWN && it.previousState == UP) {
-            notifier.show("${it.url} is down!", duration = 5000, type = NotificationType.WARNING)
-        } else if (it.state == UP && it.previousState == DOWN) {
-            notifier.show("${it.url} is up again!", duration = 5000)
+            Thread.sleep(10000)
         }
     }
 
-    println("Checked ${sites.size} site(s)")
+    private fun checkSites(sites: List<Site>) {
+        sites.forEach {
+            println("checking ${it.url}")
+
+            it.state = checker.check(it)
+
+            println("new: ${it.state}")
+            println("old: ${it.previousState}")
+
+            if (it.state == DOWN && it.previousState == UP) {
+                notifier.show("${it.url} is down!", duration = 5000, type = NotificationType.WARNING)
+
+//                trayApp.displayMessage("${it.url} is down!")
+            } else if (it.state == UP && it.previousState == DOWN) {
+                notifier.show("${it.url} is up again!", duration = 5000)
+
+//                trayApp.displayMessage("${it.url} is up again!")
+            }
+        }
+
+        println("Checked ${sites.size} site(s)")
+    }
 }
+
+fun main(args: Array<String>) {
+    LinkCheckerApp()
+}
+

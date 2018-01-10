@@ -16,16 +16,13 @@ import java.util.*
 
 class LinkChecker {
     init {
-        val cert = getPem()
-        if (cert != null) {
-            if (FuelManager.instance.keystore == null) {
-                val ks = loadDefaultKeystore()
-                ks?.setCertificateEntry(UUID.randomUUID().toString(), cert)
-
-                FuelManager.instance.keystore = loadDefaultKeystore()
-            }
-
+        val certs = getPems()
+        val ks = loadDefaultKeystore()
+        certs.forEach {
+            ks?.setCertificateEntry(UUID.randomUUID().toString(), it)
         }
+
+        FuelManager.instance.keystore = loadDefaultKeystore()
     }
 
     fun check(site: Site): SiteState {
@@ -39,14 +36,19 @@ class LinkChecker {
     }
 }
 
-fun getPem(): Certificate? {
-    val pemStream = LinkChecker::class.java.
-            classLoader.
-            getResource("pflive.pem").openStream()
+fun getPems(): List<Certificate?> {
+    val pems = listOf("pflive.pem", "pfstage.pem", "pftest.pem")
+
+    return pems.map {
+        val pemStream = LinkChecker::class.java.
+                classLoader.
+                getResource(it).openStream()
 
 
-    val fact = CertificateFactory.getInstance("X.509")
-    return fact.generateCertificate(pemStream)
+        val fact = CertificateFactory.getInstance("X.509")
+
+        fact.generateCertificate(pemStream)
+    }
 }
 
 fun loadDefaultKeystore(): KeyStore? {
