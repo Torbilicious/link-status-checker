@@ -1,6 +1,9 @@
 {
   "sites": [
     "https://www.google.com",
-    "https://www.steinberg.net"
+    "https://www.steinberg.net",
+    "https://mb.steinberg.net/rest",
+    "https://mbstage.steinberg.net/rest",
+    "https://mbtest.steinberg.net/rest"
   ]
 }
