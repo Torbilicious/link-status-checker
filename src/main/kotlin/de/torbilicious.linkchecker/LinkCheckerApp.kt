@@ -37,12 +37,12 @@ class LinkCheckerApp {
 
     private fun checkSites(sites: List<Site>) {
         sites.forEach {
-            println("checking ${it.url}")
-
             it.state = checker.check(it)
-
-            println("new: ${it.state}")
-            println("old: ${it.previousState}")
+            if (it.state != it.previousState) {
+                println("Site: ${it.url}")
+                println("    old: ${it.previousState}")
+                println("    new: ${it.state}")
+            }
 
             if (it.state == DOWN && it.previousState == UP) {
                 notifier.show("${it.url} is down!", duration = 5000, type = NotificationType.WARNING)
@@ -57,7 +57,13 @@ class LinkCheckerApp {
 
         val changes = sites.count { it.state == DOWN }
         trayApp.changeIcon(changes)
-        println("Checked ${sites.size} site(s)")
+
+        val checkedSites = sites.size
+        if (checkedSites > 1) {
+            println("Checked ${sites.size} sites")
+        } else {
+            println("Checked 1 site")
+        }
     }
 }
 
