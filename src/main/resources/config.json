@@ -2,8 +2,17 @@
   "sites": [
     "https://www.google.com",
     "https://www.steinberg.net",
-    "https://mb.steinberg.net/rest",
-    "https://mbstage.steinberg.net/rest",
-    "https://mbtest.steinberg.net/rest"
+
+    "http://mb.steinberg.net/rest",
+    "http://mbstage.steinberg.net/rest",
+    "http://mbtest.steinberg.net/rest",
+
+    "https://plm-backdoor.mb.steinberg.net/rest",
+    "https://plm-backdoor.mbstage.steinberg.net/rest",
+    "https://plm-backdoor.mbtest.steinberg.net/rest",
+
+    "https://access-code-management.mb.steinberg.net/application/health",
+    "https://access-code-management.mbstage.steinberg.net/application/health",
+    "https://access-code-management.mbtest.steinberg.net/application/health"
   ]
 }
