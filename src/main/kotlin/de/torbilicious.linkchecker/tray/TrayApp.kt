@@ -23,30 +23,6 @@ class TrayApp(private val onExit: () -> Unit = {}) {
     var iconIndex = 0
 
     init {
-        refreshTray()
-    }
-
-    private fun exit() {
-        systemTray.remove(trayIcon)
-
-        onExit()
-    }
-
-    fun displayMessage(text: String) {
-        trayIcon?.displayMessage("Link Checker", text, TrayIcon.MessageType.INFO)
-    }
-
-    fun changeIcon(number: Int) {
-        this.iconIndex = if (number > 5) {
-            5
-        } else {
-            number
-        }
-
-        refreshTray()
-    }
-
-    private fun refreshTray() {
         if (trayIcon != null) {
             systemTray.remove(trayIcon)
         }
@@ -73,5 +49,35 @@ class TrayApp(private val onExit: () -> Unit = {}) {
         trayIcon?.popupMenu = popupMenu
 
         systemTray.add(trayIcon)
+    }
+
+    private fun exit() {
+        systemTray.remove(trayIcon)
+
+        onExit()
+    }
+
+    fun displayMessage(text: String) {
+        trayIcon?.displayMessage("Link Checker", text, TrayIcon.MessageType.INFO)
+    }
+
+    fun changeIcon(number: Int) {
+        this.iconIndex = if (number > 5) {
+            5
+        } else {
+            number
+        }
+
+        refreshIcon()
+    }
+
+    private fun refreshIcon() {
+        val iconPath = TrayApp::class.java.
+                classLoader.
+                getResource(imageMap[iconIndex])
+
+        val image = ImageIO.read(iconPath)
+
+        trayIcon?.image = image
     }
 }
