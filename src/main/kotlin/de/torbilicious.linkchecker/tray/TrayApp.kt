@@ -9,17 +9,51 @@ import javax.imageio.ImageIO
 
 class TrayApp(private val onExit: () -> Unit = {}) {
     private val systemTray: SystemTray = SystemTray.getSystemTray()
-    private val trayIcon: TrayIcon
+    private var trayIcon: TrayIcon? = null
+
+    private val imageMap = mapOf(
+            0 to "number-zero-in-a-circle.png",
+            1 to "number-one-in-a-circle.png",
+            2 to "number-two-in-a-circle.png",
+            3 to "number-three-in-a-circle.png",
+            4 to "number-four-in-circular-button.png",
+            5 to "number-five-in-circular-button.png"
+    )
+
+    var iconIndex = 0
 
     init {
-        @Suppress("SENSELESS_COMPARISON")
-        if (systemTray == null) {
-            throw RuntimeException("Unable to load SystemTray!")
+        refreshTray()
+    }
+
+    private fun exit() {
+        systemTray.remove(trayIcon)
+
+        onExit()
+    }
+
+    fun displayMessage(text: String) {
+        trayIcon?.displayMessage("Link Checker", text, TrayIcon.MessageType.INFO)
+    }
+
+    fun changeIcon(number: Int) {
+        this.iconIndex = if (number > 5) {
+            5
+        } else {
+            number
+        }
+
+        refreshTray()
+    }
+
+    private fun refreshTray() {
+        if (trayIcon != null) {
+            systemTray.remove(trayIcon)
         }
 
         val iconPath = TrayApp::class.java.
                 classLoader.
-                getResource("grid-world.png")
+                getResource(imageMap[iconIndex])
 
         val image = ImageIO.read(iconPath)
 
@@ -35,19 +69,9 @@ class TrayApp(private val onExit: () -> Unit = {}) {
 
         popupMenu.add(menuItem)
 
-        trayIcon.toolTip = "Link Checker"
-        trayIcon.popupMenu = popupMenu
+        trayIcon?.toolTip = "Link Checker"
+        trayIcon?.popupMenu = popupMenu
 
         systemTray.add(trayIcon)
-    }
-
-    private fun exit() {
-        systemTray.remove(trayIcon)
-
-        onExit()
-    }
-
-    fun displayMessage(text: String) {
-        trayIcon.displayMessage("Link Checker", text, TrayIcon.MessageType.INFO)
     }
 }

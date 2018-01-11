@@ -20,16 +20,18 @@ class LinkCheckerApp {
     init {
         val sites = ConfigLoader().getConfig().sites.map { Site(URL(it)) }
 
-        this.trayApp = TrayApp(onExit = {
+        val onExit = {
             println("Shutting down")
 
             running = false
-        })
+        }
+
+        this.trayApp = TrayApp(onExit)
 
         while (running) {
             checkSites(sites)
 
-            Thread.sleep(10000)
+            Thread.sleep(5000)
         }
     }
 
@@ -45,14 +47,16 @@ class LinkCheckerApp {
             if (it.state == DOWN && it.previousState == UP) {
                 notifier.show("${it.url} is down!", duration = 5000, type = NotificationType.WARNING)
 
-//                trayApp.displayMessage("${it.url} is down!")
+                //                trayApp.displayMessage("${it.url} is down!")
             } else if (it.state == UP && it.previousState == DOWN) {
                 notifier.show("${it.url} is up again!", duration = 5000)
 
-//                trayApp.displayMessage("${it.url} is up again!")
+                //                trayApp.displayMessage("${it.url} is up again!")
             }
         }
 
+        val changes = sites.count { it.state == DOWN }
+        trayApp.changeIcon(changes)
         println("Checked ${sites.size} site(s)")
     }
 }

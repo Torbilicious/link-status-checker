@@ -2,4 +2,10 @@
 This is a small app that regulary checks the status of links and notifies you if any of them go down.
 
 
-This app uses an Icon made by [Yannick](https://www.flaticon.com/authors/yannick) from [flaticon.com](https://www.flaticon.com) 
+##TODO
+* change notifications to use more native feeling notifications
+* setup reliable buildprocess
+* enable passing config from cli (or gui?)
+
+
+This app uses Icons made by [Metrize](https://www.flaticon.com/packs/metrize) from [flaticon.com](https://www.flaticon.com) 
