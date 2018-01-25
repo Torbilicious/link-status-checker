@@ -7,6 +7,10 @@
     "http://mbstage.steinberg.net/rest",
     "http://mbtest.steinberg.net/rest",
 
+    "https://pathfinder.mb.steinberg.net/rest",
+    "https://pathfinder.mbstage.steinberg.net/rest",
+    "https://pathfinder.mbtest.steinberg.net/rest",
+
     "https://plm-backdoor.mb.steinberg.net/rest",
     "https://plm-backdoor.mbstage.steinberg.net/rest",
     "https://plm-backdoor.mbtest.steinberg.net/rest",
